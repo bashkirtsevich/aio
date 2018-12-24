@@ -12,16 +12,24 @@ class Index(web.View):
         return dict(conf=conf)
 
 class Login(web.View):
-
+    @aiohttp_jinja2.template('login.html')
     async def get(self):
         session = await get_session(self)
         session['last_visit'] = str(datetime.utcnow())
         last_visit = session['last_visit']
         text = 'Last visited {}'.format(last_visit)
-        return web.Response(text='login Aiohttp, {}'.format(text))  
+        return dict(text='{}'.format(text))
 
     async def post(self):
-        return web.Response(text='login Aiohttp')    
+        data = await self.post()
+        login = data['login']
+        password = data['password']
+
+        session = await get_session(self)
+        session['user'] = {'login': login}
+
+        location = self.app.router['index'].url_for()
+        return web.HTTPFound(location=location)
 
 class Signup(web.View):
 
