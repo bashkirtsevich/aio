@@ -19,10 +19,9 @@ def main():
     secret_key = base64.urlsafe_b64decode(fernet_key)
     setup(app, EncryptedCookieStorage(secret_key))
 
-    aiohttp_jinja2.setup(
-        app,
+    aiohttp_jinja2.setup(app,
         loader=jinja2.PackageLoader(package_name='main', package_path='templates'))
-
+    
     setup_routes(app)
     app['config'] = BaseConfig
     logging.basicConfig(level=logging.DEBUG)

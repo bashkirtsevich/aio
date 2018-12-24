@@ -3,13 +3,31 @@
 <head>
     <meta charset='UTF-8'>
     <title>Index</title>
-    <link rel="stylesheet" href="./static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    
 </head>
 <body>
-
+    
     <h2>Index</h2>
     <a href="/login">Login</a>
+
+
+    <div id="app">
+        <h3>[[ message ]]</h3>
+    </div>
+
+
+    <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'Vue.js works'
+                },
+                delimiters: ['[[',']]']
+                })
+        </script>
 
 
 </body>
