@@ -24,7 +24,6 @@ class Login(web.View):
         last_visit = session['last_visit']
         return dict()
 
-    @aiohttp_jinja2.template('login.html')
     async def post(self):
         data = await self.post()
         login = data['login']
@@ -51,3 +50,4 @@ class Logout(web.View):
 
         location = self.app.router['index'].url_for()
         return web.HTTPFound(location=location)
+
