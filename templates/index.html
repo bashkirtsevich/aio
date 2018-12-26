@@ -10,7 +10,6 @@
 </head>
 <body>
 
-    
     <h2>Index</h2>
     <div id="app">
         <h3>[[ message ]]</h3>
@@ -23,15 +22,22 @@
     <br><br>
     <h5>{{ user }}</h5>
 
+    
+
     {% if user %}
 
         <a href="/logout">Logout</a>
         <br><br>
+        <form action="/" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+            <input type="text" id="string" name="string" value="" autofocus> 
+            <h2>{{ reversed_str }}</h2>
+            <h3>{% block content %}{% endblock %}</h3>
 
-        <textarea name="" id="" cols="30" rows="10" style="color:#29cc29">Please stand by</textarea>
+        </form>
 
     {% endif %}
 
+    
 
 
 

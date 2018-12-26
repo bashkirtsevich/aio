@@ -17,13 +17,15 @@ class Index(web.View):
 
 
 class Login(web.View):
-    @aiohttp_jinja2.template('login.html')
+    @aiohttp_jinja2.template('login2.html')
     async def get(self):
         session = await get_session(self)
         session['last_visit'] = str(datetime.utcnow())
-        last_visit = session['last_visit']
-        return dict()
+        last_visit = "Last visited: " + session['last_visit']
+        return dict(last_visit=last_visit)
 
+
+    @aiohttp_jinja2.template('login.html')
     async def post(self):
         data = await self.post()
         login = data['login']
@@ -34,7 +36,7 @@ class Login(web.View):
             user = dict(login=login, password=password)
             session['user'] = user
         else:
-            exception = {'Invalid login or password, please enter admin admin'}
+            exception = 'Invalid login or password, please enter admin admin'
             return dict(exception=exception)
 
         location = self.app.router['index'].url_for()
@@ -43,7 +45,8 @@ class Login(web.View):
 
 
 class Logout(web.View):
-
+   
+    @aiohttp_jinja2.template('index.html')
     async def get(self):
         session = await get_session(self)
         del session['user']
@@ -51,3 +54,13 @@ class Logout(web.View):
         location = self.app.router['index'].url_for()
         return web.HTTPFound(location=location)
 
+
+class Calculator(web.View):
+    
+    @aiohttp_jinja2.template('calculator.html')
+    async def post(self):
+        data = await self.post()
+        string = data['string']
+        reversed_str = string[::-1]
+        #return dict(reversed_str=reversed_str)
+        return web.Response(text=reversed_str)
