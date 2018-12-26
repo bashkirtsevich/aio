@@ -49,5 +49,5 @@ class Logout(web.View):
         session = await get_session(self)
         del session['user']
 
-        location = self.app.router['login'].url_for()
+        location = self.app.router['index'].url_for()
         return web.HTTPFound(location=location)
